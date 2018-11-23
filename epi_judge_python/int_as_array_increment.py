@@ -1,9 +1,20 @@
 from test_framework import generic_test
 
+# DONE
 
 def plus_one(A):
-    # TODO - you fill in here.
-    return []
+    curry = True
+    for i in reversed( range( len(A) ) ):
+        A[i] += 1
+        if A[i] <= 9:
+            curry = False
+            break
+        else:
+            A[i] = 0
+    if curry:
+        A[i] = 1
+        A.append(0)
+    return A
 
 
 if __name__ == '__main__':
