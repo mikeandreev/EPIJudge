@@ -1,9 +1,20 @@
 from test_framework import generic_test
 
+# DONE
+
 
 def buy_and_sell_stock_once(prices):
-    # TODO - you fill in here.
-    return 0.0
+    profit = 0.0
+    buy = float('inf')
+    for p in prices:
+        if p > buy:
+            if profit < p - buy: profit = p - buy
+            #profit = max(profit, p - buy)
+        else:
+            if buy > p: buy = p
+            #buy = min(buy, p)
+    
+    return profit
 
 
 if __name__ == '__main__':
