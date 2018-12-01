@@ -2,6 +2,7 @@ from test_framework import generic_test
 
 # DONE
 
+
 def buy_and_sell_stock_once(prices):
     profit = 0.0
     buy = float('inf')
