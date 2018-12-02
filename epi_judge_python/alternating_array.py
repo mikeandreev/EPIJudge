@@ -4,9 +4,14 @@ from test_framework import generic_test
 from test_framework.test_failure import PropertyName, TestFailure
 from test_framework.test_utils import enable_executor_hook
 
+# DONE
 
 def rearrange(A):
-    # TODO - you fill in here.
+    for i in range(1, len(A)):
+        if i % 2: # enforce A[i-1] <= A[i]
+            if A[i-1] > A[i] : A[i-1], A[i] = A[i], A[i-1]
+        else: # enforce A[i-1] >= A[i]
+            if A[i-1] < A[i] : A[i-1], A[i] = A[i], A[i-1]
     return
 
 

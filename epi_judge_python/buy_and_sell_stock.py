@@ -3,6 +3,16 @@ from test_framework import generic_test
 # DONE
 
 
+def buy_and_sell_stock_once_backwards(prices):
+    profit = 0.0
+    sell = float('-inf')
+    for p in reversed(prices):
+        if p < sell:
+            if profit < sell - p: profit = sell - p
+        else:
+            if sell < p: sell = p
+    return profit
+
 def buy_and_sell_stock_once(prices):
     profit = 0.0
     buy = float('inf')
@@ -13,7 +23,6 @@ def buy_and_sell_stock_once(prices):
         else:
             if buy > p: buy = p
             #buy = min(buy, p)
-    
     return profit
 
 
