@@ -6,10 +6,18 @@ from test_framework import generic_test
 from test_framework.random_sequence_checker import run_func_with_retries
 from test_framework.test_utils import enable_executor_hook
 
+# DONE
+
+from random import random
 
 def nonuniform_random_number_generation(values, probabilities):
-    # TODO - you fill in here.
-    return 0
+    rand = random()
+    i = 0
+    sum = probabilities[i]
+    while sum < rand:
+        i += 1
+        sum += probabilities[i]
+    return values[i]
 
 
 @enable_executor_hook

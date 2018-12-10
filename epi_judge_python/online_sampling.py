@@ -6,11 +6,40 @@ from test_framework.random_sequence_checker import (
     compute_combination_idx, run_func_with_retries)
 from test_framework.test_utils import enable_executor_hook
 
+# DONE
+
+from random import randint, randrange
+import itertools
 
 # Assumption: there are at least k elements in the stream.
 def online_random_sample(stream, k):
-    # TODO - you fill in here.
-    return []
+    A=list(itertools.islice(stream, k))
+    n = k
+    for x in stream:
+        n += 1
+        #
+        i = randrange(n)
+        if i >= k:
+            continue
+        #
+        A[i] = x
+    return A
+
+# Assumption: there are at least k elements in the stream.
+def online_random_sample1(stream, k):
+    A=[]
+    n = 0
+    for x in stream:
+        n += 1
+        if len(A) <k:
+            A.append(x)
+            continue
+        i = randint(0, n-1)
+        if i >= k:
+            continue
+        i = randint(0, k-1)
+        A[i] = x
+    return A
 
 
 @enable_executor_hook
