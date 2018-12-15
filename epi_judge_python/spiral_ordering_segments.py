@@ -32,4 +32,4 @@ import unittest
 class TestSolution(unittest.TestCase):
         
     def test1(self):
-        self.assertEqual( matrix_in_spiral_order( [ [4,3], [2,1]] ), [4,3,2,1] )
+        self.assertEqual( matrix_in_spiral_order( [ [4,3], [1,2]] ), [4,3,2,1] )
