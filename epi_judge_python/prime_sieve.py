@@ -2,7 +2,7 @@ from test_framework import generic_test
 
 import math
 
-# WIP
+# DONE
 
 # Given n, return all primes up to and including n.
 def generate_primes(n):

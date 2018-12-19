@@ -1,6 +1,6 @@
 from test_framework import generic_test
 
-# Done
+# DONE
 
 def buy_and_sell_stock_once_fwd(prices):
     profits = [0.0] * len(prices)

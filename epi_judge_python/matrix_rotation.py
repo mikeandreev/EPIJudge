@@ -5,10 +5,9 @@ from test_framework import generic_test
 def rotate_matrix(A):
     n = len(A)
     for k in range(n // 2):
-        #print(k)
         for i in range(n-1-k*2):
-            #print( "{} {} {} {}".format( A[k][k+i], A[k+i][n-1-k], A[n-1-k][n-1-i-k], A[n-1-i-k][k] ) )
-            A[k][k+i], A[k+i][n-1-k], A[n-1-k][n-1-i-k], A[n-1-i-k][k] = A[n-1-i-k][k], A[k][k+i], A[k+i][n-1-k], A[n-1-k][n-1-i-k]
+            #A[k][k+i], A[k+i][n-1-k], A[n-1-k][n-1-i-k], A[n-1-i-k][k] = A[n-1-i-k][k], A[k][k+i], A[k+i][n-1-k], A[n-1-k][n-1-i-k]
+            A[k][k+i], A[k+i][~k], A[~k][~(i+k)], A[~(i+k)][k] = A[~(i+k)][k], A[k][k+i], A[k+i][~k], A[~k][~(i+k)]
         #
     return A
 
