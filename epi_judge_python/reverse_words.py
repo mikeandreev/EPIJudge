@@ -3,10 +3,17 @@ import functools
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
+# DONE
 
 # Assume s is a string encoded as bytearray.
 def reverse_words(s):
-    # TODO - you fill in here.
+    s.reverse()
+    i = -1
+    while i < len(s):
+        start = i+1
+        i = s.find(b' ',start)
+        if i < 0: i = len(s)
+        s[start:i] = reversed(s[start:i])
     return
 
 
