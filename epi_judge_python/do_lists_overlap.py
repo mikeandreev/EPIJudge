@@ -4,9 +4,14 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
+# WIP
 
 def overlapping_lists(l0, l1):
-    # TODO - you fill in here.
+    if not l0 or not l1: return None
+    tail0, tail1 = l0, l1
+    while tail0.next: tail0 = tail0.next
+    while tail1.next: tail1 = tail1.next
+    if tail0 is tail1: return tail0
     return None
 
 

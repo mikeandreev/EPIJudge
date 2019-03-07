@@ -1,9 +1,17 @@
 from test_framework import generic_test
 
+# DONE
 
 def is_balanced_binary_tree(tree):
-    # TODO - you fill in here.
-    return True
+    if not tree: return True
+    def tree_depth_chk(root):
+        if not root: return True, 0
+        lchk, ldepth = tree_depth_chk(root.left)
+        rchk, rdepth = tree_depth_chk(root.right)
+        return (lchk & rchk & (abs(ldepth-rdepth)<=1)), 1+max(ldepth, rdepth)
+        
+    chk, _ = tree_depth_chk(tree)
+    return chk
 
 
 if __name__ == '__main__':
