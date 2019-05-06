@@ -1,9 +1,17 @@
 from test_framework import generic_test
 
+# DONE
 
 def is_well_formed(s):
-    # TODO - you fill in here.
-    return True
+    stack = []
+    opening_pair = { ')': '(', ']': '[', '}': '{' }
+    for sym in s:
+        if sym in opening_pair:
+            if not stack or opening_pair[ sym ] != stack.pop():
+                return False
+        else:
+            stack.append(sym)
+    return len(stack) == 0
 
 
 if __name__ == '__main__':
