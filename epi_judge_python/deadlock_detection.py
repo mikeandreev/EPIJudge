@@ -3,16 +3,35 @@ import functools
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
+# dfs simple: DONE
+# dfs full: DONE
+
+WHITE, GREY, BLACK = range(3)
 
 class GraphVertex:
     def __init__(self):
         self.edges = []
 
-
 def is_deadlocked(graph):
-    # TODO - you fill in here.
-    return True
+    cache = {}
+    def hlp(v):
+        color = cache.get(id(v), WHITE)
+        if color == GREY: return True
+        elif color == BLACK: return False
+        else: # WHITE
+            cache[id(v)] = GREY
+            if any( hlp(w) for w in v.edges): return True
+            cache[id(v)] = BLACK
+            return False
+    
+    return any( hlp(v) for v in graph)
 
+def is_deadlocked_simple(graph):
+    def hlp(v, seen):
+        if id(v) in seen: return True
+        seen.add(id(v))
+        return any( hlp(w, seen) for w in v.edges )
+    return any( hlp(v, set()) for v in graph)
 
 @enable_executor_hook
 def is_deadlocked_wrapper(executor, num_nodes, edges):
