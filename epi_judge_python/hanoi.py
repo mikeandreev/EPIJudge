@@ -6,10 +6,18 @@ from test_framework.test_utils import enable_executor_hook
 
 NUM_PEGS = 3
 
+# DONE
 
 def compute_tower_hanoi(num_rings):
-    # TODO - you fill in here.
-    return []
+    res = []
+    #state = [list(reversed(range(1, num_rings))), [], []]
+    def move(n, peg_from, peg_to, peg_using):
+        if n <= 0: return
+        move(n-1,peg_from, peg_using, peg_to)
+        res.append( (peg_from, peg_to))
+        move(n-1, peg_using, peg_to, peg_from)
+    move(num_rings, 0, 1, 2)
+    return res
 
 
 @enable_executor_hook

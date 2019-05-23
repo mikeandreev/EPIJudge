@@ -1,9 +1,23 @@
 from test_framework import generic_test
 
+# DONE
 
 def n_queens(n):
-    # TODO - you fill in here.
-    return []
+    res, state = [], [0] * n
+    def check(row):
+        if row == n:
+            res.append(list(state))
+            return
+        for k in range(n):
+            ok = all(
+                j != k and i-j != row-k and i+j != row+k
+                for i, j in enumerate(state[:row])
+            )
+            if ok:
+                state[row] = k
+                check(row+1)
+    check(0)
+    return res
 
 
 def comp(a, b):
