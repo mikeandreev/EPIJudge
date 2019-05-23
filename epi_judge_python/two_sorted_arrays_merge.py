@@ -1,8 +1,15 @@
 from test_framework import generic_test
 
+# DONE
 
 def merge_two_sorted_arrays(A, m, B, n):
-    # TODO - you fill in here.
+    i, a, b = n + m - 1, m-1, n-1
+    while b >= 0:
+        if a >= 0 and A[a] >= B[b]:
+            if i != a: A[i] = A[a]
+            a -= 1
+        else: A[i] = B[b]; b -= 1
+        i -= 1
     return
 
 
