@@ -3,6 +3,7 @@ import functools
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
+# DONE
 
 class Name:
     def __init__(self, first_name, last_name):
@@ -15,8 +16,13 @@ class Name:
 
 
 def eliminate_duplicate(A):
-    # TODO - you fill in here.
-    return
+    A.sort()
+    i = 0
+    for a in A[1:]:
+        if A[i].first_name != a.first_name:
+            i +=1
+            if A[i] is not a: A[i] = a
+    del A[i+1:]
 
 
 @enable_executor_hook
