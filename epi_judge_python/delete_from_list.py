@@ -3,10 +3,11 @@ import functools
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
+# DONE
 
 # Delete the node past this one. Assume node is not a tail.
 def delete_after(node):
-    # TODO - you fill in here.
+    node.next = node.next.next
     return
 
 

@@ -1,9 +1,9 @@
 from test_framework import generic_test
 
+# DONE
 
 def snake_string(s):
-    # TODO - you fill in here.
-    return ''
+    return s[1::4] + s[::2] + s[3::4]
 
 
 if __name__ == '__main__':
