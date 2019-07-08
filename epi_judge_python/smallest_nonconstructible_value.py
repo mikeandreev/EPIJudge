@@ -1,8 +1,8 @@
 from test_framework import generic_test
 
+#WIP
 
 def smallest_nonconstructible_value(A):
-    # TODO - you fill in here.
     return 0
 
 
