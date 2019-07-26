@@ -5,10 +5,19 @@ from test_framework.binary_tree_utils import must_find_node
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
+# DONE
 
 def lca(node0, node1):
-    # TODO - you fill in here.
-    return None
+    cache = set()
+    node = [node0, node1]
+    while node[0] or node[1]:
+        for i in [0, 1]:
+            if node[i]:
+                if id(node[i]) in cache: 
+                    return node[i]
+                cache.add( id(node[i]) )
+                node[i] = node[i].parent
+    raise ValueError("Nodes have no common ancestor")
 
 
 @enable_executor_hook
