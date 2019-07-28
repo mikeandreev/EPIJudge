@@ -6,7 +6,7 @@ from test_framework.test_utils import enable_executor_hook
 
 import heapq
 
-# WIP
+# DONE
 
 class Star:
     def __init__(self, x, y, z):
@@ -17,9 +17,6 @@ class Star:
         return math.sqrt(self.x**2 + self.y**2 + self.z**2)
 
     def __lt__(self, rhs):
-        return self.distance > rhs.distance
-        
-    def __gt__(self, rhs):
         return self.distance < rhs.distance
 
     def __repr__(self):
@@ -32,21 +29,41 @@ class Star:
         return math.isclose(self.distance, rhs.distance)
 
 
-def find_closest_k_stars(stars, k):
+
+def find_closest_k_stars_1(stars, k):
+    class StarWrapper:
+        def __init__(self, star):
+            self.star = star
+
+        def __lt__(self, rhs):
+            # for max heap
+            return self.star > rhs.star
+
+        def __eq__(self, rhs):
+            return self.star == rhs.star
     heap = []
-    lt, gt = Star.__lt__, Star.__gt__ 
-    #Star.__lt__, Star.__gt__ = gt, lt
     for star in stars:
         if len(heap) < k:
-            heapq.heappush(heap, star)
+            heapq.heappush(heap, StarWrapper(star) )
         else:
-            if heap[0].distance > star.distance:
-                heapq.heappushpop(heap, star)
-    
-    res = sorted(heap)
-    #Star.__lt__, Star.__gt__ = lt, gt
-    return res
+            if heap[0].star.distance > star.distance:
+                heapq.heappushpop(heap, StarWrapper(star) )
+    return sorted([w.star for w in heap])
 
+def find_closest_k_stars_2(stars, k):
+    heap = []
+    for star in stars:
+        distance = star.distance
+        wrapper = (-distance, star)
+        if len(heap) < k:
+            heapq.heappush(heap, wrapper )
+        else:
+            if -(heap[0][0]) > star.distance:
+                heapq.heappushpop(heap, wrapper )
+    return sorted([w[1] for w in heap])
+
+
+find_closest_k_stars = find_closest_k_stars_2
 
 def comp(expected_output, output):
     if len(output) != len(expected_output):
