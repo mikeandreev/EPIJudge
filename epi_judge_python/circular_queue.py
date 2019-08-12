@@ -1,7 +1,7 @@
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
-# WIP
+# DONE
 
 class Queue:
     def __init__(self, capacity):
@@ -11,25 +11,22 @@ class Queue:
         return
 
     def enqueue(self, x):
-        print(f"enqueue {self.size()} / [{self.begin}, {self.end}) {self.arr}")
         l = len(self.arr)
         if self.size() == l-1:
-            print("resize")
-            if self.end < self.begin:
-                self.arr = self.arr[self.begin:] + self.arr[:self.begin] + [None]*l
-                self.begin, self.end = 0, l-1
-            else:
-                self.arr = self.arr + [None]*l
+            #if self.end < self.begin:
+            self.arr = self.arr[self.begin:] + self.arr[:self.begin] + [None]*l
+            self.begin, self.end = 0, l-1
+            #else:
+            #    self.arr = self.arr + [None]*l
             l = len(self.arr)
         self.arr[self.end] = x
         self.end += 1
         if self.end == l:
             self.end = 0
-        print( f"[{self.begin}, {self.end}) {self.arr}")
         return
 
     def dequeue(self):
-        print("dequeue")
+        #print("dequeue")
         if self.begin == self.end:
             raise RuntimeError( "queue is empty" )
         x= self.arr[self.begin]
@@ -43,7 +40,7 @@ class Queue:
     def size(self):
         s = self.end - self.begin
         if s < 0:
-            s = len(self.arr) - s
+            s = len(self.arr) + s
         return s
 
 
