@@ -3,6 +3,7 @@ import collections
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
+# DONE
 
 class GraphVertex:
     def __init__(self, label):
@@ -11,8 +12,16 @@ class GraphVertex:
 
 
 def clone_graph(graph):
-    # TODO - you fill in here.
-    return GraphVertex(0)
+    vert_copies = {}
+    def copy_vert(v):
+        if id(v) in vert_copies:
+            return vert_copies[id(v)]
+        v_copy = GraphVertex(v.label)
+        vert_copies[id(v)] = v_copy
+        for u in v.edges:
+            v_copy.edges.append( copy_vert(u) )
+        return v_copy
+    return copy_vert(graph)
 
 
 def copy_labels(edges):
