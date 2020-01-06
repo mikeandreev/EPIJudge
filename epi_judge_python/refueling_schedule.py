@@ -6,12 +6,19 @@ from test_framework.test_utils import enable_executor_hook
 
 MPG = 20
 
+import math
+
+# DONE
 
 # gallons[i] is the amount of gas in city i, and distances[i] is the
 # distance city i to the next city.
 def find_ample_city(gallons, distances):
-    # TODO - you fill in here.
-    return 0
+    indx, minSum, cumSum = 0, 0, 0
+    for i in range(1, len(gallons)):
+        cumSum += gallons[i-1]*MPG - distances[i-1]
+        if cumSum < minSum:
+            indx, minSum = i, cumSum
+    return indx
 
 
 @enable_executor_hook

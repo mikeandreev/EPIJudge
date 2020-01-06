@@ -4,6 +4,7 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
+# DONE
 
 class BinaryTreeNode:
     def __init__(self, data=None, left=None, right=None, size=None):
@@ -12,11 +13,29 @@ class BinaryTreeNode:
         self.right = right
         self.size = size
 
+def find_kth_node_binary_tree_norec(tree, k):
+    if not tree or k <= 0: return None
+    left_size = tree.left.size if tree.left else 0
 
-def find_kth_node_binary_tree(tree, k):
-    # TODO - you fill in here.
-    return None
+    while left_size != k-1:
+        if left_size >= k:
+            tree = tree.left
+        else:
+            tree, k = tree.right, k - left_size - 1
+        left_size = tree.left.size if tree.left else 0
+    return tree
 
+def find_kth_node_binary_tree_rec(tree, k):
+    if not tree or k <= 0: return None
+    left_size = tree.left.size if tree.left else 0
+
+    if left_size >= k:
+        return find_kth_node_binary_tree_rec(tree.left, k)
+    elif left_size == k - 1:
+        return tree
+    return find_kth_node_binary_tree_rec(tree.right, k - left_size - 1)
+
+find_kth_node_binary_tree = find_kth_node_binary_tree_norec
 
 @enable_executor_hook
 def find_kth_node_binary_tree_wrapper(executor, tree, k):
