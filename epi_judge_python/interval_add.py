@@ -7,10 +7,34 @@ from test_framework.test_utils import enable_executor_hook
 
 Interval = collections.namedtuple('Interval', ('left', 'right'))
 
+# DONE
 
 def add_interval(disjoint_intervals, new_interval):
-    # TODO - you fill in here.
-    return []
+    res = []
+    ins, ins_done = None, False
+    def append_ins_if_any():
+        nonlocal res, ins, ins_done
+        if not ins_done:
+            if ins is None: ins = new_interval
+            res.append(ins)
+            ins_done = True
+    
+    for interval in disjoint_intervals:
+        if interval.right < new_interval.left:
+            res.append(interval)
+        elif new_interval.right < interval.left:
+            append_ins_if_any()
+            res.append(interval)
+        else:
+            if ins is None:
+                ins = Interval(
+                    min(interval.left, new_interval.left),
+                    max(interval.right, new_interval.right)
+                    )
+            else:
+                ins = Interval(ins.left, max(interval.right, ins.right))
+    append_ins_if_any()
+    return res
 
 
 @enable_executor_hook

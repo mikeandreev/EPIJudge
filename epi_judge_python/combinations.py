@@ -1,9 +1,16 @@
 from test_framework import generic_test, test_utils
 
+# DONE
 
 def combinations(n, k):
-    # TODO - you fill in here.
-    return []
+    if k == 0: return [[]]
+    #if n < k: return []
+    res = combinations(n-1, k-1)
+    for c in res:
+        c.append(n)
+    if n-1 >= k:
+        res += combinations(n-1, k)
+    return res
 
 
 if __name__ == '__main__':
