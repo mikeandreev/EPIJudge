@@ -4,14 +4,30 @@ import functools
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
+# DONE
+
 Endpoint = collections.namedtuple('Endpoint', ('is_closed', 'val'))
 
 Interval = collections.namedtuple('Interval', ('left', 'right'))
 
 
 def union_of_intervals(intervals):
-    # TODO - you fill in here.
-    return []
+    if not intervals:
+        return []
+
+    intervals.sort( key=lambda interval: (interval.left.val, not interval.left.is_closed) )
+    result = [intervals[0]]
+    for i in range(1, len(intervals)):
+        to_join = intervals[i]
+        last = result[-1]
+        if (last.right.val, last.right.is_closed) < (to_join.right.val, to_join.right.is_closed):
+            if last.right.val < to_join.left.val or \
+                 (last.right.val == to_join.left.val and not last.right.is_closed and not to_join.left.is_closed):
+                result.append(to_join)
+            else:
+                result[-1] = Interval( last.left, to_join.right)
+
+    return result
 
 
 @enable_executor_hook
