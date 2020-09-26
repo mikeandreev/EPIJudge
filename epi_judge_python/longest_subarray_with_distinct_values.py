@@ -1,9 +1,21 @@
 from test_framework import generic_test
 
+# DONE
 
 def longest_subarray_with_distinct_entries(A):
-    # TODO - you fill in here.
-    return 0
+    res = 0
+    begin , end = 0, 0
+    content = set()
+    while True:
+        while end < len(A) and A[end] not in content:
+            content.add(A[end])
+            end += 1
+            res = max(res, end-begin)
+        if end == len(A): break
+        while A[end] in content:
+           content.remove(A[begin])
+           begin += 1
+    return res
 
 
 if __name__ == '__main__':
