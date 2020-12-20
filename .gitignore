@@ -25,3 +25,8 @@ epi_judge_java/java_build/
 
 # cocalc
 *.term
+
+# Vim files
+*.swp
+*.swo
+
