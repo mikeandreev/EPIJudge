@@ -5,13 +5,46 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
+# problem 13.8
+#
+# v1 DONE +
+# v2 WIP
+#
+
 Person = collections.namedtuple('Person', ('age', 'name'))
 
 
-def group_by_age(people):
-    # TODO - you fill in here.
+def group_by_age_v1(people):
+    min_age, max_age = 1e5, 0
+    for s in people:
+    	min_age, max_age = min(min_age, s.age), max(max_age, s.age)
+    cache = [ [] for _ in range(max_age-min_age+1)]
+    for s in people:
+    	cache[s.age - min_age].append(s)
+    i = 0
+    for c in cache:
+    	for el in c:
+    		people[i] = el
+    		i += 1
     return
 
+def group_by_age_v2(people):
+    min_age, max_age = 1e5, 0
+    for s in people:
+    	min_age, max_age = min(min_age, s.age), max(max_age, s.age)
+    cache = [ [] for _ in range(max_age-min_age+1)]
+    for s in people:
+    	cache[s.age - min_age].append(s)
+    i = 0
+    for c in cache:
+    	for el in c:
+    		people[i] = el
+    		i += 1
+    return
+
+
+def group_by_age(people):
+	return group_by_age_v2(people)
 
 @enable_executor_hook
 def group_by_age_wrapper(executor, people):
