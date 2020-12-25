@@ -8,7 +8,7 @@ from test_framework.test_utils import enable_executor_hook
 # problem 13.8
 #
 # v1 DONE +
-# v2 WIP
+# v2 DONE
 #
 
 Person = collections.namedtuple('Person', ('age', 'name'))
@@ -17,34 +17,39 @@ Person = collections.namedtuple('Person', ('age', 'name'))
 def group_by_age_v1(people):
     min_age, max_age = 1e5, 0
     for s in people:
-    	min_age, max_age = min(min_age, s.age), max(max_age, s.age)
+        min_age, max_age = min(min_age, s.age), max(max_age, s.age)
     cache = [ [] for _ in range(max_age-min_age+1)]
     for s in people:
-    	cache[s.age - min_age].append(s)
+        cache[s.age - min_age].append(s)
     i = 0
     for c in cache:
-    	for el in c:
-    		people[i] = el
-    		i += 1
+        for el in c:
+            people[i] = el
+            i += 1
     return
 
 def group_by_age_v2(people):
-    min_age, max_age = 1e5, 0
-    for s in people:
-    	min_age, max_age = min(min_age, s.age), max(max_age, s.age)
-    cache = [ [] for _ in range(max_age-min_age+1)]
-    for s in people:
-    	cache[s.age - min_age].append(s)
-    i = 0
-    for c in cache:
-    	for el in c:
-    		people[i] = el
-    		i += 1
+    counter = collections.Counter([s.age for s in people])
+    indx, offset = {}, 0
+    for age, count in counter.items():
+        indx[age] = offset
+        offset += counter[age]
+    while indx:
+        age1 = next(iter(indx))
+        i1 = indx[age1]
+        age2 = people[i1].age
+        i2 = indx[age2]
+        people[i1], people[i2] = people[i2], people[i1]
+        indx[age2] += 1
+        counter[age2] -= 1
+        if counter[age2] == 0:
+            del indx[age2]
+
     return
 
 
 def group_by_age(people):
-	return group_by_age_v2(people)
+    return group_by_age_v2(people)
 
 @enable_executor_hook
 def group_by_age_wrapper(executor, people):
