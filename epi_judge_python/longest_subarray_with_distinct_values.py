@@ -1,5 +1,7 @@
 from test_framework import generic_test
 
+# problem 12.8
+#
 # DONE
 
 def longest_subarray_with_distinct_entries(A):
