@@ -4,7 +4,11 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
-# WIP
+#
+# problem 16.7
+#
+# DONE
+#
 
 def decompose_into_dictionary_words3(domain, dictionary):
     INIT_VAL = -1

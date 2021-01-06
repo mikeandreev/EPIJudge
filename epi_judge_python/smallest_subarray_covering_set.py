@@ -6,7 +6,11 @@ from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 import collections
 import math
-# WIP
+
+# problem 12.7
+#
+# DONE
+#
 
 Subarray = collections.namedtuple('Subarray', ('start', 'end'))
 
